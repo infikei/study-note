@@ -88,7 +88,7 @@ WHERE EXISTS (
     
     CREATE TABLE rental_history (history_id INT, car_id INT, start_date DATE, end_date DATE);
     
-    INSERT INTO rental_hisory VALUES
+    INSERT INTO rental_history VALUES
     (1, 1, '2024-11-24', '2024-11-27'),
     (2, NULL, '2024-12-07', '2024-12-16');
     ```
