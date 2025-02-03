@@ -2,7 +2,7 @@
 
 > 2025.01.02. 목 작성 (by 인피케이)
 
-### 1. WITH 절과 공통 테이블 표현식 (Common Table Expression, CTE)
+### 1. WITH 절과 공통 테이블 표현식 (CTE, Common Table Expression)
 
 - `WITH` 절은 SQL에서 공통 테이블 표현식(CTE)를 정의하기 위해 사용하는 구문이다.
 - 공통 테이블 표현식(CTE)은 단일 SQL 문 내에서 임시 이름이 붙은 임시 결과 집합으로, 해당 SQL 문 내에서 여러 번 참조하여 사용할 수 있다.
