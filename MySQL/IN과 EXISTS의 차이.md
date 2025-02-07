@@ -1,6 +1,8 @@
 # IN과 EXISTS의 차이
 
 > 2024.12.31. 화 작성 (by 인피케이)
+> 
+> 2025.02.07. 금 최종 업데이트
 
 ### 1. `IN`
 
@@ -158,3 +160,61 @@ WHERE EXISTS (
 
 1. [https://velog.io/@wogud9675/MySQL-NOT-IN-과-NOT-EXISTS의-차이점](https://velog.io/@wogud9675/MySQL-NOT-IN-%EA%B3%BC-NOT-EXISTS%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90) 
 2. [https://inpa.tistory.com/entry/MYSQL-📚-서브쿼리-연산자-EXISTS-총정리-성능-비교](https://inpa.tistory.com/entry/MYSQL-%F0%9F%93%9A-%EC%84%9C%EB%B8%8C%EC%BF%BC%EB%A6%AC-%EC%97%B0%EC%82%B0%EC%9E%90-EXISTS-%EC%B4%9D%EC%A0%95%EB%A6%AC-%EC%84%B1%EB%8A%A5-%EB%B9%84%EA%B5%90)
+
+---
+
+### 7. MySQL 실습 코드
+
+```sql
+-- # 1. 실습 전 스키마 및 테이블 준비
+
+CREATE SCHEMA study_in_exists DEFAULT CHARACTER SET utf8;
+
+USE study_in_exists;
+
+CREATE TABLE car (car_id INT, car_name VARCHAR(50));
+
+INSERT INTO car VALUES
+(1, '세단'),
+(2, 'SUV'),
+(3, '트럭');
+
+SELECT * FROM car;
+
+CREATE TABLE rental_history (history_id INT, car_id INT, start_date DATE, end_date DATE);
+
+INSERT INTO rental_history VALUES
+(1, 1, '2024-11-24', '2024-11-27'),
+(2, NULL, '2024-12-07', '2024-12-16');
+
+SELECT * FROM rental_history;
+
+-- # 2. NOT IN 사용
+
+SELECT *
+FROM car
+WHERE car_id NOT IN (
+    SELECT car_id
+    FROM rental_history
+);
+
+-- # 3. NOT EXISTS 사용
+
+SELECT *
+FROM car c
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM rental_history h
+    WHERE h.car_id = c.car_id
+);
+
+-- # 4. 실습 후 테이블 및 스키마 지우기
+
+drop table rental_history;
+drop table car;
+
+drop schema study_in_exists;
+
+show databases;
+
+```
